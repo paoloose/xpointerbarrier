@@ -24,7 +24,7 @@ struct Insets
     int top, left, right, bottom;
 };
 
-bool do_toggle = false;
+volatile sig_atomic_t do_toggle = 0;
 bool verbose = false;
 
 PointerBarrier
@@ -128,11 +128,11 @@ destroy(Display *dpy, PointerBarrier *barriers, int num)
 }
 
 void
-handle_sigusr1(int dummy)
+handle_sigusr1(int sig)
 {
-    (void)dummy;
+    (void)sig;
 
-    do_toggle = true;
+    do_toggle = 1;
 }
 
 bool
@@ -292,12 +292,12 @@ main(int argc, char **argv)
             }
         }
 
-        if (do_toggle)
+        if (do_toggle == 1)
         {
             if (verbose)
                 fprintf(stderr, __NAME__": Received signal, toggling\n");
 
-            do_toggle = false;
+            do_toggle = 0;
             barriers_active = !barriers_active;
 
             if (barriers != NULL)

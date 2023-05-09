@@ -1,5 +1,9 @@
 Release history for xpointerbarrier
 
+next
+  [Fixed]
+  - Use "volatile sig_atomic_t" in signal handler.
+
 v20.07  2020-07-19
   [Fixed]
   - Build no longer depends on GNU sed.
