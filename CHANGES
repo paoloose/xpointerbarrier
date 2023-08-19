@@ -1,5 +1,9 @@
 Release history for xpointerbarrier
 
+next
+  [Fixed]
+  - Fix Makefile: $LDFLAGS should come last.
+
 v23.05  2023-05-29
   [Fixed]
   - Use "volatile sig_atomic_t" in signal handler.
