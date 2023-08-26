@@ -1,6 +1,6 @@
 Release history for xpointerbarrier
 
-next
+v23.08  2023-08-26
   [Fixed]
   - Fix Makefile: $LDFLAGS should come last.
 
