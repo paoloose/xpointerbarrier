@@ -6,6 +6,10 @@
 
 #define _POSIX_C_SOURCE 199309L  /* for sigaction */
 
+#if !defined(__NAME__)
+#define __NAME__ "xpointerbarrier"
+#endif
+
 #include <errno.h>
 #include <signal.h>
 #include <stdbool.h>
@@ -24,7 +28,7 @@ struct Insets
     int top, left, right, bottom;
 };
 
-volatile sig_atomic_t do_toggle = 0;
+volatile sig_atomic_t do_toggle = 1;
 bool verbose = false;
 
 PointerBarrier
@@ -264,12 +268,6 @@ main(int argc, char **argv)
     {
         FD_ZERO(&fds);
         FD_SET(xfd, &fds);
-
-        if (select(xfd + 1, &fds, NULL, NULL, NULL) == -1 && errno != EINTR)
-        {
-            perror(__NAME__": select() returned with error");
-            exit(EXIT_FAILURE);
-        }
 
         while (XPending(dpy))
         {

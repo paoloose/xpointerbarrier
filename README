@@ -7,6 +7,7 @@
   https://uninformativ.de/git/xpointerbarrier
   https://uninformativ.de/bugs.html
 
+  Forked from https://uninformativ.de/git/xpointerbarrier.git
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -45,7 +46,6 @@ To build the program and install it to /usr/local:
     $ make
     # make install
 
-
 Running
 -------
 
@@ -55,3 +55,23 @@ Simply run the program in your ~/.xinitrc:
 
 It's probably best to first configure your screens, then run the
 program.
+
+Toggling
+--------
+
+You can toggle the pointer barriers on and off by sending the program
+SIGUSR1:
+
+    $ killall -USR1 xpointerbarrier
+
+Sample config for i3
+--------------------
+
+    # See https://i3wm.org/docs/userguide.html#mouse_warping
+    mouse_warping none
+
+    # for toggling pointer barriers on and off while pressing 'Menu'
+    bindsym Menu exec --no-startup-id killall -USR1 xpointerbarrier
+    bindsym --release Menu exec --no-startup-id killall -USR1 xpointerbarrier
+
+    exec --no-startup-id xpointerbarrier 0 0 0 0
